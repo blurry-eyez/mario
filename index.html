@@ -62,6 +62,13 @@
     <script type="text/javascript" src="js/game.js"></script>
     
 
+    
+  <div id="onscreen-buttons">
+  <button onclick="sendKey('ArrowLeft')">Left</button>
+  <button onclick="sendKey('ArrowRight')">Right</button>
+  <button onclick="sendKey('KeyX')">Jump</button>
+  <button onclick="sendKey('KeyZ')">Run</button>
+</div>
 <script>
   function keyInfoFromCode(code) {
     switch (code) {
@@ -86,13 +93,6 @@
     }, 150);
   }
 </script>
-    
-  <div id="onscreen-buttons">
-  <button onclick="sendKey('ArrowLeft')">Left</button>
-  <button onclick="sendKey('ArrowRight')">Right</button>
-  <button onclick="sendKey('KeyX')">Jump</button>
-  <button onclick="sendKey('KeyZ')">Run</button>
-</div>
 
       
   </body>
