@@ -52,52 +52,60 @@
     <button onclick="sendKey('KeyZ')">Run</button>
   </div>
 
-  
-<script>
-  function sendKey(code) {
-    const map = {
-      'ArrowLeft': 37,
-      'ArrowRight': 39,
-      'KeyX': 88,
-      'KeyZ': 90
-    };
+  <script>
+  const keyMap = {
+    'ArrowLeft': 37,
+    'ArrowRight': 39,
+    'KeyX': 88, // Jump
+    'KeyZ': 90  // Run
+  };
 
-    const keyCode = map[code];
-    if (!keyCode) return;
-
-    // Trigger keydown
-    const down = new KeyboardEvent('keydown', {
-      bubbles: true,
-      cancelable: true,
+  function keyInfo(code) {
+    const keyCode = keyMap[code];
+    return {
+      key: code === 'KeyX' ? 'x' : code === 'KeyZ' ? 'z' : code.replace('Arrow', 'Arrow'),
+      code: code,
       keyCode: keyCode,
-      which: keyCode
-    });
-    Object.defineProperty(down, 'keyCode', { get: () => keyCode });
-    Object.defineProperty(down, 'which', { get: () => keyCode });
-    document.dispatchEvent(down);
-
-    // Trigger keyup after short delay
-    setTimeout(() => {
-      const up = new KeyboardEvent('keyup', {
-        bubbles: true,
-        cancelable: true,
-        keyCode: keyCode,
-        which: keyCode
-      });
-      Object.defineProperty(up, 'keyCode', { get: () => keyCode });
-      Object.defineProperty(up, 'which', { get: () => keyCode });
-      document.dispatchEvent(up);
-    }, 150);
+      which: keyCode,
+      bubbles: true,
+      cancelable: true
+    };
   }
 
-  // Mobile touch support
-  document.querySelectorAll('#onscreen-buttons button').forEach(button => {
-    button.addEventListener('touchstart', e => {
+  function press(code) {
+    const info = keyInfo(code);
+    const down = new KeyboardEvent('keydown', info);
+    Object.defineProperty(down, 'keyCode', { get: () => info.keyCode });
+    Object.defineProperty(down, 'which', { get: () => info.which });
+    document.dispatchEvent(down);
+  }
+
+  function release(code) {
+    const info = keyInfo(code);
+    const up = new KeyboardEvent('keyup', info);
+    Object.defineProperty(up, 'keyCode', { get: () => info.keyCode });
+    Object.defineProperty(up, 'which', { get: () => info.which });
+    document.dispatchEvent(up);
+  }
+
+  // 🕹️ Add listeners to each button
+  document.querySelectorAll('#onscreen-buttons button').forEach(btn => {
+    const code = btn.getAttribute('data-key');
+
+    btn.addEventListener('mousedown', () => press(code));
+    btn.addEventListener('mouseup', () => release(code));
+    btn.addEventListener('mouseleave', () => release(code));
+
+    btn.addEventListener('touchstart', e => {
       e.preventDefault();
-      button.click();
+      press(code);
+    }, { passive: false });
+
+    btn.addEventListener('touchend', e => {
+      e.preventDefault();
+      release(code);
     });
   });
 </script>
-
   </body>
 </html>
