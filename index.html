@@ -36,6 +36,21 @@
     <script type="text/javascript" src="js/levels/11.js"></script>
     <script type="text/javascript" src="js/levels/11tunnel.js"></script>
     <script type="text/javascript" src="js/game.js"></script>
+    <script>
+window.addEventListener('message', (event) => {
+  const { key } = event.data;
+  if (key) {
+    const down = new KeyboardEvent('keydown', { key: key });
+    window.dispatchEvent(down);
+
+    // Optional keyup after delay to simulate tap
+    setTimeout(() => {
+      const up = new KeyboardEvent('keyup', { key: key });
+      window.dispatchEvent(up);
+    }, 150);
+  }
+});
+</script>
     <div class="info">
       <p class="controls">Move: Arrow Keys, Jump: X, Run: Z</p>
       
