@@ -10,8 +10,66 @@
     <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" href="css/game.css">
+
+    <style>
+  #onscreen-buttons {
+    margin: 20px auto 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-width: 600px;
+  }
+  #onscreen-buttons button {
+    padding: 12px 20px;
+    font-size: 18px;
+    background: #333;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    min-width: 90px;
+  }
+</style>
+
   </head>
   <body>
+    
+<div id="onscreen-buttons">
+  <button onclick="sendKey('ArrowLeft')">Left</button>
+  <button onclick="sendKey('ArrowRight')">Right</button>
+  <button onclick="sendKey('KeyX')">Jump</button>
+  <button onclick="sendKey('KeyZ')">Run</button>
+</div>
+
+<script>
+  function keyInfoFromCode(code) {
+    switch (code) {
+      case 'ArrowLeft': return { key: 'ArrowLeft', code, keyCode: 37 };
+      case 'ArrowRight': return { key: 'ArrowRight', code, keyCode: 39 };
+      case 'KeyX': return { key: 'x', code, keyCode: 88 };
+      case 'KeyZ': return { key: 'z', code, keyCode: 90 };
+      default: return null;
+    }
+  }
+
+  function sendKey(code) {
+    const keyInfo = keyInfoFromCode(code);
+    if (!keyInfo) return;
+
+    const down = new KeyboardEvent('keydown', keyInfo);
+    window.dispatchEvent(down);
+
+    setTimeout(() => {
+      const up = new KeyboardEvent('keyup', keyInfo);
+      window.dispatchEvent(up);
+    }, 150);
+  }
+
+  // Optional: also respond to touch
+  document.querySelectorAll('#onscreen-buttons button').forEach(button => {
+    button.addEventListener('touchstart', e => e.target.click());
+  });
+</script>
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/input.js"></script>
     <script type="text/javascript" src="js/resources.js"></script>
