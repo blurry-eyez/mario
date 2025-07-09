@@ -52,3 +52,31 @@
         }
     };
 })();
+
+// 👂 Listen for messages from parent window (Cloudflare Worker page)
+window.addEventListener('message', (event) => {
+  if (!event.data || !event.data.key) return;
+
+  const keyCode = event.data.key;
+
+  // 🔽 Simulate keydown
+  const down = new KeyboardEvent('keydown', { code: keyCode, key: keyFromCode(keyCode) });
+  window.dispatchEvent(down);
+
+  // 🔼 Simulate keyup after short delay (like a quick tap)
+  setTimeout(() => {
+    const up = new KeyboardEvent('keyup', { code: keyCode, key: keyFromCode(keyCode) });
+    window.dispatchEvent(up);
+  }, 150);
+});
+
+// Optional helper function to get 'key' value from 'code'
+function keyFromCode(code) {
+  const map = {
+    'ArrowLeft': 'ArrowLeft',
+    'ArrowRight': 'ArrowRight',
+    'KeyZ': 'z',
+    'KeyX': 'x'
+  };
+  return map[code] || '';
+}
