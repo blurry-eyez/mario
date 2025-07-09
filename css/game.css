@@ -1,29 +1,42 @@
-html, body, ul, li {
+html, body {
   margin: 0;
-  border: 0;
   padding: 0;
+  border: 0;
+  height: 100%;
+  overflow-x: hidden; /* allow vertical scroll if needed */
 }
 
 canvas {
   display: block;
-  width: 762;
+  width: 762px; /* ✅ fixed: added 'px' */
   margin: 0 auto;
   background-color: blue;
+  max-width: 100%; /* responsive on smaller screens */
+}
+
+onscreen-buttons {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 600px;
+}
+
+onscreen-buttons button {
+  padding: 12px 20px;
+  font-size: 18px;
+  background: #333;
+  color: white;
+  border: 1px solid white;
+  border-radius: 8px;
+  min-width: 90px;
 }
 
 p {
   text-align: center;
 }
 
-body {
-  overflow: hidden;
-  height: 100%;
-}
-
-html {
-  overflow: hidden;
-  height: 100%;
-}
 
 .info {
   position: absolute;
