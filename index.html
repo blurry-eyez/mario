@@ -44,13 +44,12 @@
     
 
 <body>
-
-  <div id="onscreen-buttons">
-    <button onclick="sendKey('ArrowLeft')">Left</button>
-    <button onclick="sendKey('ArrowRight')">Right</button>
-    <button onclick="sendKey('KeyX')">Jump</button>
-    <button onclick="sendKey('KeyZ')">Run</button>
-  </div>
+<div id="onscreen-buttons">
+  <button data-key="ArrowLeft">← Left</button>
+  <button data-key="ArrowRight">→ Right</button>
+  <button data-key="KeyX">Jump</button>
+  <button data-key="KeyZ">Run</button>
+</div>
 
   <script>
   const keyMap = {
