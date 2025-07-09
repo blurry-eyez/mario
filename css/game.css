@@ -24,8 +24,25 @@ html {
   overflow: hidden;
   height: 100%;
 }
+onscreen-buttons {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 600px;
+}
 
-.info {
+onscreen-buttons button {
+  padding: 12px 20px;
+  font-size: 18px;
+  background: #333;
+  color: white;
+  border: 1px solid white;
+  border-radius: 8px;
+  min-width: 90px;
+}
+  .info {
   position: absolute;
   top: 0;
   left: 0;
